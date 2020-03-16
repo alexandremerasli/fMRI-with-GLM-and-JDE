@@ -1,6 +1,6 @@
 # fMRI-with-GLM-and-JDE
 
-## PyHRF installation
+## PyHRF installation (for MacOS)
 
 First go in your work directory and install virtualenv with pip :
 
