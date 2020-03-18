@@ -16,12 +16,13 @@ from path_names import *
 # Loading file
 PARCELLATION_MASK = nib.load(os.path.join(INPUT_FOLDER,'mask_parcel.nii'))
 
-TR = 1.76
+TR = 2.76
 # Time length of the HRF (in seconds, default: 25.0)
-HRF_DURATION = TR * 10.0
+#HRF_DURATION = TR * 10.0
+HRF_DURATION = 25
 
 # Time resolution of the HRF
-DT = TR / 2.0
+DT = TR / 4.0
 
 
 ## Functions
