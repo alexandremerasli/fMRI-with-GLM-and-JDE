@@ -14,6 +14,11 @@ print('Shape before = ', data_contrib.shape)
 data_contrib = data_contrib[:,:,:,0]
 print('Shape after = ', data_contrib.shape)
 data_contrib = np.where(data_contrib != 0, 1, 0)
+data_contrib[0:5,:,0:5] = 1
+data_contrib[5:,:,0:5] = 2
+data_contrib[0:5,:,5:] = 3
+data_contrib[5:,:,5:] = 4
+
 mem = np.memmap(os.path.join(INPUT_FOLDER,"memmap_array"),dtype='float64', mode='w+', shape=data_contrib.shape)
 mem[:] = data_contrib[:]
 #print(mem[20,20:40,0])

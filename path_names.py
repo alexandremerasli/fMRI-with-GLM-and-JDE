@@ -20,11 +20,23 @@ def create_directory(path):
         if not os.path.isdir(path):
             raise
 
+## INPUT
+
+#subject = 'simu'
 subject = 'S01'
 
-# Directory where input files are
-INPUT_FOLDER=os.path.abspath(os.path.join(os.getcwd(),'./input'))
-create_directory(INPUT_FOLDER)
+# Directory where simulated data files are
+SIMULATED_INPUT_FOLDER=os.path.abspath(os.path.join(os.getcwd(),'./simulated_data'))
+create_directory(SIMULATED_INPUT_FOLDER)
+
+# Directory where real data files are
+REAL_INPUT_FOLDER=os.path.abspath(os.path.join(os.getcwd(),'./real_data'))
+create_directory(REAL_INPUT_FOLDER)
+
+# Directory where chosen input files are
+INPUT_FOLDER=REAL_INPUT_FOLDER
+
+## OUTPUT
 
 # Directory where output files will be
 OUTPUT_FOLDER=os.path.abspath(os.path.join(os.getcwd(),'./output'))

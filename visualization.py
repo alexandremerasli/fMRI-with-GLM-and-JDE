@@ -11,7 +11,7 @@ from nilearn.image import load_img, resample_img, image
 import nibabel as nib
 import numpy as np
 from nilearn.plotting import plot_stat_map, plot_roi, plot_anat, plot_epi
-from path_names import *
+from path_names import INPUT_FOLDER, PYHRF_OUTPUT, FIGURES_OUTPUT
 
 # Loading file
 PARCELLATION_MASK = nib.load(os.path.join(INPUT_FOLDER,'mask_parcel.nii'))
@@ -19,7 +19,7 @@ PARCELLATION_MASK = nib.load(os.path.join(INPUT_FOLDER,'mask_parcel.nii'))
 TR = 2.76
 # Time length of the HRF (in seconds, default: 25.0)
 #HRF_DURATION = TR * 10.0
-HRF_DURATION = 25
+HRF_DURATION = 25.0
 
 # Time resolution of the HRF
 DT = TR / 4.0
@@ -152,23 +152,28 @@ parcels_img_data = np.array(parcels_img.get_data())
 ANAT_IMAGE = glob.glob(os.path.join(INPUT_FOLDER,'bold.nii')).pop()
 anat_img = load_img(ANAT_IMAGE)
 
-# Estimated HRF
+# Estimated HRF (3)
 hrf_s = xndarray.load(os.path.join(PYHRF_OUTPUT, 'jde_vem_hrf.nii'))
 time_axis, canonical_hrf = getCanoHRF(duration=HRF_DURATION, dt=DT)
 
-# Plot Canonical HRF
+# Plot Canonical HRF (3)
 ax_hrf = plt.subplot(gs[1, 0])
 ax_hrf.plot(time_axis, canonical_hrf, ":", label="Canonical")
 ax_hrf.set_xlim([0,np.max(time_axis)])
 ax_hrf.set_ylabel("amplitude", size=15)
 ax_hrf.set_xlabel("time (s)", size=15)
 
-# Plot PPM
+# Plot PPM (2)
 ax_ppm = plt.subplot(gs[0, 1])
 ppm_img = load_img(os.path.join(PYHRF_OUTPUT, ppm_nii))
-plot_stat_map(stat_map_img=ppm_img, threshold=PPM_THRESHOLD, draw_cross=False,
-              cut_coords=cut_coords, display_mode='z', 
-              title='PyHRF_'+ppm_name, figure=fig, axes=ax_ppm, cmap=plt.cm.autumn)
+try:
+    plot_stat_map(stat_map_img=ppm_img, threshold=PPM_THRESHOLD, draw_cross=False,
+        cut_coords=cut_coords, display_mode='z', 
+        title='PyHRF_'+ppm_name, figure=fig, axes=ax_ppm, cmap=plt.cm.autumn)
+except:
+    plot_stat_map(stat_map_img=ppm_img, threshold=PPM_THRESHOLD, draw_cross=False,
+        display_mode='z', 
+        title='PyHRF_'+ppm_name, figure=fig, axes=ax_ppm, cmap=plt.cm.autumn)
 
 # Plotting estimated HRF per Parcel
 active_parcels = find_activated_parcels(ppm_img.get_data(), parcels_img_data,
@@ -187,12 +192,19 @@ for color_nb, parcel_id in enumerate(active_parcels):
 hrf_mean /= len(active_parcels)
 ax_hrf.plot(time_axis, hrf_mean, label=ppm_name, color="k", linewidth=2)
 
-# Plotting parcels
+# Plotting parcels (1)
 hrf_parcels_img = nib.Nifti1Image(parcels_data, parcels_img.affine, parcels_img.get_header())
 ax_rois = plt.subplot(gs[0, 0])
-plot_roi(roi_img=hrf_parcels_img,
-         cut_coords=cut_coords, display_mode='z', draw_cross=False, 
-         title="HRF parcels", figure=fig, axes=ax_rois)
+try:
+    plot_roi(roi_img=hrf_parcels_img,
+        cut_coords=cut_coords, display_mode='z', draw_cross=False, 
+        title="HRF parcels", 
+        figure=fig, axes=ax_rois)
+except:
+    plot_roi(roi_img=hrf_parcels_img, display_mode='z', draw_cross=False, 
+        title="HRF parcels", 
+        figure=fig, axes=ax_rois)
+
 
 # Legend
 ax_hrf.legend(fontsize=20);
