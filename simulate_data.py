@@ -43,7 +43,7 @@ simulation =Pipeline(simulation_steps)
 simulation.resolve()
 simulation_items =simulation.get_values()
 #simulation_items['response_levels'].save(os.path.join(SIMULATED_INPUT_FOLDER,'mask_parcel.nii'))
-simulation_items['stim_induced_signal'].save(os.path.join(SIMULATED_INPUT_FOLDER,'mask_parcel.nii'))
+#simulation_items['stim_induced_signal'].save(os.path.join(SIMULATED_INPUT_FOLDER,'mask_parcel.nii'))
 simulation_items['bold'].save(os.path.join(SIMULATED_INPUT_FOLDER,'bold.nii'))
 # Save a file contrib.nii to create the mask with seuillage_contrib.py
 simulation_items['bold'].save(os.path.join(SIMULATED_INPUT_FOLDER,'contrib.nii'))
@@ -52,7 +52,7 @@ simulation_items['bold'].save(os.path.join(SIMULATED_INPUT_FOLDER,'contrib.nii')
 
 row_csv = []
 for i in range(len(amplitude)):
-    row_csv.append([1, "exp", 1.38, 2.76, float(amplitude[i])]) # First column is session, second is type of experiment, third is time, 
+    row_csv.append([1, "exp", 1.38, 0., float(amplitude[i])]) # First column is session, second is type of experiment, third is time, 
                                                                # Fourth is each stimulus duration, fifth is amplitude of stimulus (0 or 1)
 
 
