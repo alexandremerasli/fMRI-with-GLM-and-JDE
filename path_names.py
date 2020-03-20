@@ -22,8 +22,13 @@ def create_directory(path):
 
 ## INPUT
 
+subject = 'notebook'
 #subject = 'simu'
-subject = 'S01'
+#subject = 'S01'
+
+# Directory where notebook data files are
+NOTEBOOK_INPUT_FOLDER=os.path.abspath(os.path.join(os.getcwd(),'./notebook_data'))
+create_directory(NOTEBOOK_INPUT_FOLDER)
 
 # Directory where simulated data files are
 SIMULATED_INPUT_FOLDER=os.path.abspath(os.path.join(os.getcwd(),'./simulated_data'))
@@ -34,7 +39,7 @@ REAL_INPUT_FOLDER=os.path.abspath(os.path.join(os.getcwd(),'./real_data'))
 create_directory(REAL_INPUT_FOLDER)
 
 # Directory where chosen input files are
-INPUT_FOLDER=REAL_INPUT_FOLDER
+INPUT_FOLDER=NOTEBOOK_INPUT_FOLDER
 
 ## OUTPUT
 

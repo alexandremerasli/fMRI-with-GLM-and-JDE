@@ -24,6 +24,11 @@ HRF_DURATION = 25.0
 # Time resolution of the HRF
 DT = TR / 4.0
 
+# Add parse arguments
+import argparse
+
+parser = argparse.ArgumentParser(description='Define experience in paradigm')
+parser.add_argument('--exp', help='experience name in paradigm')
 
 ## Functions
 
@@ -128,7 +133,7 @@ CLUSTER_SIZE_THRESHOLD = 50  # 50 voxels correspond to a volume of 400 mm3 when 
 ppms_maps = find_ppms_maps(PYHRF_OUTPUT)
 
 # PPM to be shown
-ppm_name = 'Exp'
+ppm_name = parser.parse_args().exp
 print(ppms_maps)
 ppm_nii = ppms_maps[ppm_name]
 
@@ -185,7 +190,6 @@ for color_nb, parcel_id in enumerate(active_parcels):
     sub_cuboid = hrf_s.sub_cuboid(ROI=parcel_id).data
     hrf_mean += sub_cuboid
     parcels_data[parcels_img_data == parcel_id] = color_nb + 1
-
     ax_hrf.plot(time_axis, sub_cuboid, "--", color=plt.cm.gist_ncar(float(color_nb) / len(active_parcels)))   
 
 

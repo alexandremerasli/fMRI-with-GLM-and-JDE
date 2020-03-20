@@ -32,11 +32,15 @@ SIGMA_H=0.1
 # Drifts type ('poly', 'cos')
 DRIFT_TYPE='cos'  # poly
 
+SUBJECT='notebook'
 #SUBJECT='simu'
-SUBJECT='S01'
+#SUBJECT='S01'
 
 # Files
-INPUT_FOLDER='real_data'
+INPUT_FOLDER='notebook_data'
+#INPUT_FOLDER='simulated_data'
+#INPUT_FOLDER='real_data'
+
 PARCELLATION_MASK="${INPUT_FOLDER}/mask_parcel.nii"
 PARADIGM_FILE="${INPUT_FOLDER}/signal_stim.csv"
 BOLD_FILE="${INPUT_FOLDER}/bold.nii"
